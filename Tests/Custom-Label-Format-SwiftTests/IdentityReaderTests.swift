@@ -8,7 +8,7 @@
 import XCTest
 @testable import Custom_Label_Format_Swift
 
-final class IdentityReaderTests: XCTestCase {
+class IdentityReaderTests: XCTestCase {
     
     let bundleResourcesFolder: String = "/contents/Resources"
     

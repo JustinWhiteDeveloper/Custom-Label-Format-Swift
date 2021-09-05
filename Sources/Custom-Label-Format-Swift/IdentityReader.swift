@@ -7,17 +7,17 @@
 
 import Foundation
 
-protocol IdentityReader {
+public protocol IdentityReader {
     func readFile(source: String) -> [String:String]
     
     func identityMapFromString(input: String) -> [String : String]
 }
 
-class FileIdentityReader: IdentityReader {
+public class FileIdentityReader: IdentityReader {
     
     private let expectedFileType = "identity"
     
-    func readFile(source: String) -> [String : String] {
+    public func readFile(source: String) -> [String : String] {
         
         let pathExtension = (source as NSString).pathExtension
         
@@ -35,7 +35,7 @@ class FileIdentityReader: IdentityReader {
         }
     }
     
-    func identityMapFromString(input: String) -> [String : String] {
+    public func identityMapFromString(input: String) -> [String : String] {
         do {
             guard let data = input.data(using: .utf8),
                   let value = try JSONSerialization
