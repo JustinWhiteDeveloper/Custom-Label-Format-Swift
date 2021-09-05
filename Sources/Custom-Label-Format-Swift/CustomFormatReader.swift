@@ -12,6 +12,11 @@ public protocol CustomFormatReader {
 }
 
 public class FolderCustomFormatReader: CustomFormatReader {
+    
+    public init() {
+        
+    }
+    
     public func readFile(source: String) -> CustomFormat {
         return CustomFormat()
     }

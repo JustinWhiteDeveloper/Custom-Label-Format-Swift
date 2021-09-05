@@ -17,6 +17,10 @@ public class FileIdentityReader: IdentityReader {
     
     private let expectedFileType = "identity"
     
+    public init() {
+        
+    }
+    
     public func readFile(source: String) -> [String : String] {
         
         let pathExtension = (source as NSString).pathExtension
