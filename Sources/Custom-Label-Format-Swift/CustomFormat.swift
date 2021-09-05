@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MediaType: String, Encodable {
+public enum MediaType: String, Encodable, CaseIterable {
     case Drama
     case Fantasy
     case Comedy
@@ -19,8 +19,8 @@ public enum MediaType: String, Encodable {
     case Thriller
 }
 
-public enum BasicCategory: String, Encodable {
-    case TVShow
+public enum MediaCategory: String, Encodable, CaseIterable {
+    case TVShow = "TV Show"
     case Movie
 }
 
@@ -29,7 +29,7 @@ public struct CustomFormatItem: Encodable {
     
     public var mediaType: MediaType?
     
-    public var categories: [BasicCategory] = []
+    public var categories: [MediaCategory] = []
     
     public var overrideName: String?
     
