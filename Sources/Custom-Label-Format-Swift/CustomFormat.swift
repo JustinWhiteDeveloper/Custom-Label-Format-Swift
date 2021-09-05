@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MediaType: String, Encodable, CaseIterable {
+public enum MediaCategory: String, Encodable, CaseIterable {
     case Drama
     case Fantasy
     case Comedy
@@ -19,7 +19,7 @@ public enum MediaType: String, Encodable, CaseIterable {
     case Thriller
 }
 
-public enum MediaCategory: String, Encodable, CaseIterable {
+public enum MediaType: String, Encodable, CaseIterable {
     case TVShow = "TV Show"
     case Movie
 }
