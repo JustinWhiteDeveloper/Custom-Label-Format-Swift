@@ -8,7 +8,15 @@
 import Foundation
 
 public enum MediaType: String, Encodable {
+    case Drama
+    case Fantasy
     case Comedy
+    case SliceOfLife = "Slice Of Life"
+    case Action
+    case Horror
+    case Mystery
+    case Romance
+    case Thriller
 }
 
 public enum BasicCategory: String, Encodable {
@@ -17,10 +25,15 @@ public enum BasicCategory: String, Encodable {
 }
 
 public struct CustomFormatItem: Encodable {
+    public var identifier: String?
     
     public var mediaType: MediaType?
     
     public var categories: [BasicCategory] = []
+    
+    public var overrideName: String?
+    
+    public var imageUrl: String?
 }
 
 public struct CustomFormat: Encodable, CustomStringConvertible {
@@ -32,29 +45,4 @@ public struct CustomFormat: Encodable, CustomStringConvertible {
     }
 }
 
-public protocol CustomFormatWriter {
-    func writeFile(destination: String, value: CustomFormat)
-}
 
-public class FolderCustomFormatWriter: CustomFormatWriter {
-    public func writeFile(destination: String, value: CustomFormat) {
-        let encodedValue = value.description
-        
-        do {
-            try encodedValue.write(toFile: destination, atomically: true, encoding: .utf8)
-        }
-        catch {
-            print(error)
-        }
-    }
-}
-
-public protocol CustomFormatReader {
-    func readFile(source: String) -> CustomFormat
-}
-
-public class FolderCustomFormatReader: CustomFormatReader {
-    public func readFile(source: String) -> CustomFormat {
-        return CustomFormat()
-    }
-}
