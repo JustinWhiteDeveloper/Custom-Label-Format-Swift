@@ -8,16 +8,19 @@
 import XCTest
 @testable import Custom_Label_Format_Swift
 
-public protocol CustomFormatWriter {
-    func writeFile(destination: String, value: CustomFormat)
-}
-
-public class FolderCustomFormatWriter: CustomFormatWriter {
-    public func writeFile(destination: String, value: CustomFormat) {
-    
-    }
-}
-
 class CustomFormatWriterTests: XCTestCase {
 
+    func testFormatWriter_WriteEmptyFormat() {
+        //given
+        let destination = "item1.json"
+        let writer: CustomFormatWriter = FolderCustomFormatWriter()
+        
+        let item = CustomFormat(items: [:])
+        
+        //when
+        writer.writeFile(destination: destination, value: item)
+        
+        //then
+        XCTAssertTrue(FileManager.default.fileExists(atPath: destination))
+    }
 }
