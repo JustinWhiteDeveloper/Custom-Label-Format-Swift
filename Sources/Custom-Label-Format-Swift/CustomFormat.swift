@@ -50,7 +50,18 @@ public struct CustomFormat: Encodable, CustomStringConvertible {
     public var items: [String: CustomFormatItem] = [:]
     
     public var description: String {
-        return "{}"
+        
+        do {
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(items)
+            let json = String(data: jsonData, encoding: String.Encoding.utf16)
+            
+            return json ?? "{}"
+        }
+        catch {
+            print(error)
+            return "{}"
+        }
     }
 }
 

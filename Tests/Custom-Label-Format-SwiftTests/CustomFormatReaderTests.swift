@@ -11,13 +11,14 @@ class CustomFormatReaderTests: XCTestCase {
 
     func testFormatReader_ReadFromBundle() {
         //given
+        let path = Bundle.module.path(forResource: "test1", ofType: "clabel")!
         let reader: CustomFormatReader = FolderCustomFormatReader()
         
-        
         //when
+        let value = reader.readFile(source: path)
         
         //then
-        
+        XCTAssertEqual(value.items.count, 1)
+        XCTAssertNotNil(value.items["a"])
     }
-    
 }

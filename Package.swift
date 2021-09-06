@@ -20,7 +20,9 @@ let package = Package(
             name: "Custom-Label-Format-SwiftTests",
             dependencies: ["Custom-Label-Format-Swift"],
             resources: [
-                .copy("Resources/group1.identity")
+                .copy("Resources/group1.identity"),
+                .copy("Resources/test1.clabel")
+
             ]),
     ]
 )

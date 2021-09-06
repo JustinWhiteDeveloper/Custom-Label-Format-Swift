@@ -15,7 +15,7 @@ class CustomFormatWriterTests: XCTestCase {
         let destination = "item1.json"
         let writer: CustomFormatWriter = FolderCustomFormatWriter()
         
-        let item = CustomFormat(items: [:])
+        let item = CustomFormat()
         
         //when
         writer.writeFile(destination: destination, value: item)
