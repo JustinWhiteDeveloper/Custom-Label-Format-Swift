@@ -25,6 +25,11 @@ public enum MediaType: String, Encodable, CaseIterable {
 }
 
 public struct CustomFormatItem: Encodable {
+    
+    public init() {
+        
+    }
+    
     public var identifier: String?
     
     public var mediaType: MediaType?
@@ -37,6 +42,10 @@ public struct CustomFormatItem: Encodable {
 }
 
 public struct CustomFormat: Encodable, CustomStringConvertible {
+    
+    public init() {
+        
+    }
     
     public var items: [String: CustomFormatItem] = [:]
     
