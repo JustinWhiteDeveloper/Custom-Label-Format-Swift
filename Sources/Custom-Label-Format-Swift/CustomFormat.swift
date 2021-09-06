@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MediaCategory: String, Encodable, CaseIterable {
+public enum MediaCategory: String, Codable, CaseIterable {
     case Drama
     case Fantasy
     case Comedy
@@ -19,12 +19,12 @@ public enum MediaCategory: String, Encodable, CaseIterable {
     case Thriller
 }
 
-public enum MediaType: String, Encodable, CaseIterable {
+public enum MediaType: String, Codable, CaseIterable {
     case TVShow = "TV Show"
     case Movie
 }
 
-public struct CustomFormatItem: Encodable {
+public struct CustomFormatItem: Codable {
     
     public init() {
         
@@ -41,7 +41,7 @@ public struct CustomFormatItem: Encodable {
     public var imageUrl: String?
 }
 
-public struct CustomFormat: Encodable, CustomStringConvertible {
+public struct CustomFormat: Codable, CustomStringConvertible {
     
     public init() {
         
@@ -53,7 +53,7 @@ public struct CustomFormat: Encodable, CustomStringConvertible {
         
         do {
             let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(items)
+            let jsonData = try jsonEncoder.encode(self)
             let json = String(data: jsonData, encoding: String.Encoding.utf16)
             
             return json ?? "{}"

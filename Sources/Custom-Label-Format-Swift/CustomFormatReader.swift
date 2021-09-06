@@ -18,6 +18,20 @@ public class FolderCustomFormatReader: CustomFormatReader {
     }
     
     public func readFile(source: String) -> CustomFormat {
+        
+        do {
+            guard let data = FileManager.default.contents(atPath: source) else {
+                return CustomFormat()
+            }
+            
+            let format = try JSONDecoder().decode(CustomFormat.self, from: data)
+            return format
+            
+        }
+        catch {
+            print(error)
+        }
+        
         return CustomFormat()
     }
 }
