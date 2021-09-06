@@ -54,7 +54,7 @@ public struct CustomFormat: Codable, CustomStringConvertible {
         do {
             let jsonEncoder = JSONEncoder()
             let jsonData = try jsonEncoder.encode(self)
-            let json = String(data: jsonData, encoding: String.Encoding.utf16)
+            let json = String(data: jsonData, encoding: String.Encoding.utf8)
             
             return json ?? "{}"
         }

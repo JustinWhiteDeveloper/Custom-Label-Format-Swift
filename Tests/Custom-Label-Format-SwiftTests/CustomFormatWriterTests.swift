@@ -23,4 +23,23 @@ class CustomFormatWriterTests: XCTestCase {
         //then
         XCTAssertTrue(FileManager.default.fileExists(atPath: destination))
     }
+    
+    func testCustomFormat_CustomValueEncoding() {
+        //given
+        var item = CustomFormat()
+        var subItem = CustomFormatItem()
+        subItem.categories = []
+        subItem.identifier = "id"
+        subItem.imageUrl = "img"
+        subItem.mediaType = .Movie
+        subItem.overrideName = "name"
+        
+        let expectedValue = "{\"items\":{\"test\":{\"mediaType\":\"Movie\",\"overrideName\":\"name\",\"categories\":[],\"identifier\":\"id\",\"imageUrl\":\"img\"}}}"
+        
+        //when
+        item.items.updateValue(subItem, forKey: "test")
+
+        //then
+        XCTAssertEqual(item.description, expectedValue)
+    }
 }
