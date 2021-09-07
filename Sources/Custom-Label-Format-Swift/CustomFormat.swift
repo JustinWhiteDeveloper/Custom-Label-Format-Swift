@@ -8,6 +8,7 @@
 import Foundation
 
 public enum MediaCategory: String, Codable, CaseIterable {
+    case Unknown
     case Drama
     case Fantasy
     case Comedy
@@ -17,11 +18,40 @@ public enum MediaCategory: String, Codable, CaseIterable {
     case Mystery
     case Romance
     case Thriller
+    
+    public var associatedIndex: Int {
+        MediaCategory.allCases.firstIndex(of: self) ?? 0
+    }
+    
+    public static func valueFromIndex(index: Int) -> MediaCategory {
+        let values = MediaCategory.allCases
+        
+        if values.count <= index || index < 0 {
+            return .Unknown
+        }
+        
+        return values[index]
+    }
 }
 
 public enum MediaType: String, Codable, CaseIterable {
+    case Unknown
     case TVShow = "TV Show"
     case Movie
+    
+    public var associatedIndex: Int {
+        MediaType.allCases.firstIndex(of: self) ?? 0
+    }
+    
+    public static func valueFromIndex(index: Int) -> MediaType {
+        let values = MediaType.allCases
+        
+        if values.count <= index || index < 0 {
+            return .Unknown
+        }
+        
+        return values[index]
+    }
 }
 
 public struct CustomFormatItem: Codable {

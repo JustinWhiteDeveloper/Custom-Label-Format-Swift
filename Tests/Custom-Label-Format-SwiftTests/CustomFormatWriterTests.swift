@@ -42,4 +42,26 @@ class CustomFormatWriterTests: XCTestCase {
         //then
         XCTAssertEqual(item.description, expectedValue)
     }
+    
+    func testCustomFormat_MediaTypeAssociatedValues() {
+        //given
+        let index = MediaType.Movie.associatedIndex
+        let value = MediaType.valueFromIndex(index: index)
+        
+        //when
+        //then
+        XCTAssertEqual(index, 2)
+        XCTAssertEqual(value, .Movie)
+    }
+    
+    func testCustomFormat_MediaCategoryAssociatedValues() {
+        //given
+        let index = MediaCategory.Comedy.associatedIndex
+        let value = MediaCategory.valueFromIndex(index: index)
+        
+        //when
+        //then
+        XCTAssertEqual(index, 3)
+        XCTAssertEqual(value, .Comedy)
+    }
 }
