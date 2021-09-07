@@ -50,7 +50,7 @@ class CustomFormatWriterTests: XCTestCase {
         
         //when
         //then
-        XCTAssertEqual(index, 2)
+        XCTAssertEqual(index, 1)
         XCTAssertEqual(value, .Movie)
     }
     
@@ -61,7 +61,7 @@ class CustomFormatWriterTests: XCTestCase {
         
         //when
         //then
-        XCTAssertEqual(index, 3)
+        XCTAssertEqual(index, 2)
         XCTAssertEqual(value, .Comedy)
     }
 }
