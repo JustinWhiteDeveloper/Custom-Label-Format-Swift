@@ -8,7 +8,6 @@
 import Foundation
 
 public enum MediaCategory: String, Codable, CaseIterable {
-    case Unknown
     case Drama
     case Fantasy
     case Comedy
@@ -18,7 +17,8 @@ public enum MediaCategory: String, Codable, CaseIterable {
     case Mystery
     case Romance
     case Thriller
-    
+    case Unknown
+
     public var associatedIndex: Int {
         MediaCategory.allCases.firstIndex(of: self) ?? 0
     }
@@ -35,10 +35,10 @@ public enum MediaCategory: String, Codable, CaseIterable {
 }
 
 public enum MediaType: String, Codable, CaseIterable {
-    case Unknown
     case TVShow = "TV Show"
     case Movie
-    
+    case Unknown
+
     public var associatedIndex: Int {
         MediaType.allCases.firstIndex(of: self) ?? 0
     }
