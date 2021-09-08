@@ -101,6 +101,8 @@ public struct CustomFormatItem: Codable {
     
     public var mediaType: MediaType?
     
+    public var isMarked: Bool = false
+    
     public var categories: [MediaCategory] = []
     
     func isLabelled() -> Bool {
