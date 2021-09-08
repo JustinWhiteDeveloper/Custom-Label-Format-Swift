@@ -7,7 +7,30 @@
 
 import Foundation
 
-public enum MediaCategory: String, Codable, CaseIterable {
+public protocol Searchable: CaseIterable {
+    
+    associatedtype SearchType: CaseIterable, RawRepresentable where SearchType.RawValue == String
+    
+    var associatedIndex: Int { get }
+
+    
+    static var defaultValue: SearchType { get }
+    static func valueFromIndex(index: Int, offset: Int) -> SearchType
+    static func from(storedValue: String) -> SearchType
+}
+
+public extension Searchable {
+
+    static func valueFromIndex(index: Int) -> SearchType {
+        return valueFromIndex(index: index, offset: 0)
+    }
+    
+    static func from(storedValue: String) -> SearchType {
+        return SearchType(rawValue: storedValue) ?? defaultValue
+    }
+}
+
+public enum MediaCategory: String, Codable, Searchable {
     case Drama
     case Fantasy
     case Comedy
@@ -16,41 +39,54 @@ public enum MediaCategory: String, Codable, CaseIterable {
     case Horror
     case Mystery
     case Romance
-    case Thriller
     case Unknown
-
+    
+    
     public var associatedIndex: Int {
-        MediaCategory.allCases.firstIndex(of: self) ?? 0
+        return MediaCategory.allCases.firstIndex(of: self) ?? 0
     }
     
-    public static func valueFromIndex(index: Int) -> MediaCategory {
+    public static var defaultValue: MediaCategory {
+        return .Unknown
+    }
+
+    public static func valueFromIndex(index: Int, offset: Int = 0) -> MediaCategory {
         let values = MediaCategory.allCases
         
-        if values.count <= index || index < 0 {
-            return .Unknown
+        let adjustedIndex = index + offset
+        
+        if values.count <= adjustedIndex || adjustedIndex < 0 {
+            return defaultValue
         }
         
-        return values[index]
+        return values[adjustedIndex]
     }
 }
 
-public enum MediaType: String, Codable, CaseIterable {
+public enum MediaType: String, Codable, Searchable {
     case TVShow = "TV Show"
     case Movie
     case Unknown
 
+    
     public var associatedIndex: Int {
-        MediaType.allCases.firstIndex(of: self) ?? 0
+        return MediaType.allCases.firstIndex(of: self) ?? 0
     }
     
-    public static func valueFromIndex(index: Int) -> MediaType {
+    public static var defaultValue: MediaType {
+        return .Unknown
+    }
+    
+    public static func valueFromIndex(index: Int, offset: Int = 0) -> MediaType {
         let values = MediaType.allCases
         
-        if values.count <= index || index < 0 {
-            return .Unknown
+        let adjustedIndex = index + offset
+        
+        if values.count <= adjustedIndex || adjustedIndex < 0 {
+            return defaultValue
         }
         
-        return values[index]
+        return values[adjustedIndex]
     }
 }
 
@@ -69,6 +105,13 @@ public struct CustomFormatItem: Codable {
     public var overrideName: String?
     
     public var imageUrl: String?
+    
+    func isLabelled() -> Bool {
+        let setMediaType = mediaType != nil && mediaType != MediaType.Unknown
+        let setCategoryType = categories.count > 0
+
+        return setMediaType && setCategoryType
+    }
 }
 
 public struct CustomFormat: Codable, CustomStringConvertible {
