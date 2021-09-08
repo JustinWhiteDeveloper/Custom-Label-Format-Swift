@@ -16,11 +16,9 @@ class CustomFormatTests: XCTestCase {
         var subItem = CustomFormatItem()
         subItem.categories = []
         subItem.identifier = "id"
-        subItem.imageUrl = "img"
         subItem.mediaType = .Movie
-        subItem.overrideName = "name"
         
-        let expectedValue = "{\"items\":{\"test\":{\"mediaType\":\"Movie\",\"overrideName\":\"name\",\"categories\":[],\"identifier\":\"id\",\"imageUrl\":\"img\"}}}"
+        let expectedValue = "{\"items\":{\"test\":{\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":1}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -36,9 +34,7 @@ class CustomFormatTests: XCTestCase {
         var subItem = CustomFormatItem()
         subItem.categories = [.Action]
         subItem.identifier = "id"
-        subItem.imageUrl = "img"
         subItem.mediaType = .Movie
-        subItem.overrideName = "name"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -74,9 +70,7 @@ class CustomFormatTests: XCTestCase {
         var item = CustomFormatItem()
         item.categories = [.Action]
         item.identifier = "id"
-        item.imageUrl = "img"
         item.mediaType = .Movie
-        item.overrideName = "name"
 
         //when
         let isLabelled = item.isLabelled()
@@ -90,9 +84,7 @@ class CustomFormatTests: XCTestCase {
         var item = CustomFormatItem()
         item.categories = []
         item.identifier = "id"
-        item.imageUrl = "img"
         item.mediaType = .Movie
-        item.overrideName = "name"
 
         //when
         let isLabelled = item.isLabelled()
@@ -106,8 +98,6 @@ class CustomFormatTests: XCTestCase {
         var item = CustomFormatItem()
         item.categories = []
         item.identifier = "id"
-        item.imageUrl = "img"
-        item.overrideName = "name"
 
         //when
         let isLabelled = item.isLabelled()
@@ -121,8 +111,6 @@ class CustomFormatTests: XCTestCase {
         var item = CustomFormatItem()
         item.categories = [.Unknown]
         item.identifier = "id"
-        item.imageUrl = "img"
-        item.overrideName = "name"
         item.mediaType = .Unknown
 
         //when

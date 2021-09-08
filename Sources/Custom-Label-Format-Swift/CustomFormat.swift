@@ -66,8 +66,9 @@ public enum MediaCategory: String, Codable, Searchable {
 public enum MediaType: String, Codable, Searchable {
     case TVShow = "TV Show"
     case Movie
+    case Anime
+    case Documentary
     case Unknown
-
     
     public var associatedIndex: Int {
         return MediaType.allCases.firstIndex(of: self) ?? 0
@@ -102,10 +103,6 @@ public struct CustomFormatItem: Codable {
     
     public var categories: [MediaCategory] = []
     
-    public var overrideName: String?
-    
-    public var imageUrl: String?
-    
     func isLabelled() -> Bool {
         let setMediaType = mediaType != nil && mediaType != MediaType.Unknown
         let setCategoryType = categories.count > 0
@@ -120,7 +117,13 @@ public struct CustomFormat: Codable, CustomStringConvertible {
         
     }
     
+    //Members
+    
     public var items: [String: CustomFormatItem] = [:]
+    
+    public var version: Double = 1.0
+    
+    //Methods
     
     public func getLabelledIndicies() -> [String] {
         return items.filter { item in
