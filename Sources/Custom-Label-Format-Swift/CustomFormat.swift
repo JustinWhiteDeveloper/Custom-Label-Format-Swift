@@ -122,6 +122,12 @@ public struct CustomFormat: Codable, CustomStringConvertible {
     
     public var items: [String: CustomFormatItem] = [:]
     
+    public func getLabelledIndicies() -> [String] {
+        return items.filter { item in
+            item.value.isLabelled()
+        }.map({$0.key})
+    }
+    
     public var description: String {
         
         do {

@@ -27,6 +27,24 @@ class CustomFormatTests: XCTestCase {
 
         //then
         XCTAssertEqual(item.description, expectedValue)
+        XCTAssertEqual(item.getLabelledIndicies(), [])
+    }
+    
+    func testCustomFormat_LabelledIndicies() {
+        //given
+        var item = CustomFormat()
+        var subItem = CustomFormatItem()
+        subItem.categories = [.Action]
+        subItem.identifier = "id"
+        subItem.imageUrl = "img"
+        subItem.mediaType = .Movie
+        subItem.overrideName = "name"
+        
+        //when
+        item.items.updateValue(subItem, forKey: "test")
+
+        //then
+        XCTAssertEqual(item.getLabelledIndicies(), ["test"])
     }
     
     func testCustomFormat_MediaTypeAssociatedValues() {
