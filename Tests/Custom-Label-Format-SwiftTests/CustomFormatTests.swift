@@ -18,7 +18,7 @@ class CustomFormatTests: XCTestCase {
         subItem.identifier = "id"
         subItem.mediaType = .Movie
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":1}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":2}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -56,6 +56,9 @@ class CustomFormatTests: XCTestCase {
         //then
         XCTAssertEqual(index, 1)
         XCTAssertEqual(value, .Movie)
+        XCTAssertEqual(MediaType.defaultIndex, MediaType.Unknown.associatedIndex)
+        XCTAssertEqual(MediaType.defaultValue, MediaType.Unknown)
+
     }
     
     func testCustomFormat_MediaCategoryAssociatedValues() {
@@ -67,6 +70,8 @@ class CustomFormatTests: XCTestCase {
         //then
         XCTAssertEqual(index, 2)
         XCTAssertEqual(value, .Comedy)
+        XCTAssertEqual(MediaCategory.defaultIndex, MediaCategory.Unknown.associatedIndex)
+        XCTAssertEqual(MediaCategory.defaultValue, MediaCategory.Unknown)
     }
     
     func testCustomFormat_IsLabelled_ValuesProvided() {

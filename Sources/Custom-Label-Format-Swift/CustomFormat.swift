@@ -12,7 +12,10 @@ public protocol Searchable: CaseIterable {
     associatedtype SearchType: CaseIterable, RawRepresentable where SearchType.RawValue == String
     
     var associatedIndex: Int { get }
+    
+    static var defaultIndex: Int { get }
 
+    func associatedIndexWithOffset(offset: Int) -> Int
     
     static var defaultValue: SearchType { get }
     static func valueFromIndex(index: Int, offset: Int) -> SearchType
@@ -21,6 +24,16 @@ public protocol Searchable: CaseIterable {
 
 public extension Searchable {
 
+    func associatedIndexWithOffset(offset: Int) -> Int {
+        let index = associatedIndex + offset
+        
+        if index < 0 || index >= SearchType.allCases.count {
+            return Self.defaultIndex
+        }
+        
+        return index
+    }
+    
     static func valueFromIndex(index: Int) -> SearchType {
         return valueFromIndex(index: index, offset: 0)
     }
@@ -44,6 +57,10 @@ public enum MediaCategory: String, Codable, Searchable {
     
     public var associatedIndex: Int {
         return MediaCategory.allCases.firstIndex(of: self) ?? 0
+    }
+    
+    public static var defaultIndex: Int {
+        return MediaCategory.defaultValue.associatedIndex
     }
     
     public static var defaultValue: MediaCategory {
@@ -72,6 +89,10 @@ public enum MediaType: String, Codable, Searchable {
     
     public var associatedIndex: Int {
         return MediaType.allCases.firstIndex(of: self) ?? 0
+    }
+    
+    public static var defaultIndex: Int {
+        return MediaType.defaultValue.associatedIndex
     }
     
     public static var defaultValue: MediaType {
@@ -127,7 +148,7 @@ public struct CustomFormat: Codable, CustomStringConvertible {
     
     public var items: [String: CustomFormatItem] = [:]
     
-    public var version: Double = 1.1
+    public var version: Int = 2
     
     //Methods
     
