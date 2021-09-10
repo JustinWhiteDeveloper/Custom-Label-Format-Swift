@@ -18,7 +18,10 @@ class CustomFormatReaderTests: XCTestCase {
         let value = reader.readFile(source: path)
         
         //then
+        XCTAssertEqual(value.version, 1.1)
         XCTAssertEqual(value.items.count, 1)
         XCTAssertNotNil(value.items["a"])
+        XCTAssertTrue(value.items["a"]?.isMarked ?? false)
+
     }
 }

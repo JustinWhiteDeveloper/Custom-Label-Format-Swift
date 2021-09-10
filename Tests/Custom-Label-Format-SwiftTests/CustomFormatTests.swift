@@ -18,7 +18,7 @@ class CustomFormatTests: XCTestCase {
         subItem.identifier = "id"
         subItem.mediaType = .Movie
         
-        let expectedValue = "{\"items\":{\"test\":{\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":1}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":1}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -27,6 +27,7 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(item.description, expectedValue)
         XCTAssertEqual(item.getLabelledIndicies(), [])
         XCTAssertFalse(subItem.isMarked)
+        XCTAssertFalse(subItem.isLabelled())
     }
     
     func testCustomFormat_LabelledIndicies() {
@@ -41,6 +42,8 @@ class CustomFormatTests: XCTestCase {
         item.items.updateValue(subItem, forKey: "test")
 
         //then
+        XCTAssertFalse(subItem.isMarked)
+        XCTAssertTrue(subItem.isLabelled())
         XCTAssertEqual(item.getLabelledIndicies(), ["test"])
     }
     
@@ -114,6 +117,21 @@ class CustomFormatTests: XCTestCase {
         item.identifier = "id"
         item.mediaType = .Unknown
 
+        //when
+        let isLabelled = item.isLabelled()
+
+        //then
+        XCTAssertFalse(isLabelled)
+    }
+    
+    func testCustomFormat_IsLabelled_MarkedAsNotComplete() {
+        //given
+        var item = CustomFormatItem()
+        item.categories = [.Action]
+        item.identifier = "id"
+        item.mediaType = .Movie
+        item.isMarked = true
+        
         //when
         let isLabelled = item.isLabelled()
 

@@ -127,7 +127,7 @@ public struct CustomFormat: Codable, CustomStringConvertible {
     
     public var items: [String: CustomFormatItem] = [:]
     
-    public var version: Double = 1.0
+    public var version: Double = 1.1
     
     //Methods
     
