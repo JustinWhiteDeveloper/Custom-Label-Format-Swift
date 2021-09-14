@@ -46,14 +46,15 @@ public extension Searchable {
 public enum MediaCategory: String, Codable, Searchable {
     case Drama
     case Fantasy
+    case SciFi
     case Comedy
     case SliceOfLife = "Slice Of Life"
     case Action
     case Horror
     case Mystery
     case Romance
+    case Crime
     case Unknown
-    
     
     public var associatedIndex: Int {
         return MediaCategory.allCases.firstIndex(of: self) ?? 0
@@ -127,10 +128,6 @@ public struct CustomFormatItem: Codable {
     public var categories: [MediaCategory] = []
     
     func isLabelled() -> Bool {
-        if isMarked {
-            return false
-        }
-        
         let setMediaType = mediaType != nil && mediaType != MediaType.Unknown
         let setCategoryType = categories.count > 0
 

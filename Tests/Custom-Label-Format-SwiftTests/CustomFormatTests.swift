@@ -68,7 +68,7 @@ class CustomFormatTests: XCTestCase {
         
         //when
         //then
-        XCTAssertEqual(index, 2)
+        XCTAssertEqual(index, 3)
         XCTAssertEqual(value, .Comedy)
         XCTAssertEqual(MediaCategory.defaultIndex, MediaCategory.Unknown.associatedIndex)
         XCTAssertEqual(MediaCategory.defaultValue, MediaCategory.Unknown)
@@ -129,7 +129,7 @@ class CustomFormatTests: XCTestCase {
         XCTAssertFalse(isLabelled)
     }
     
-    func testCustomFormat_IsLabelled_MarkedAsNotComplete() {
+    func testCustomFormat_IsLabelled_MarkedStillComplete() {
         //given
         var item = CustomFormatItem()
         item.categories = [.Action]
@@ -141,6 +141,6 @@ class CustomFormatTests: XCTestCase {
         let isLabelled = item.isLabelled()
 
         //then
-        XCTAssertFalse(isLabelled)
+        XCTAssertTrue(isLabelled)
     }
 }
