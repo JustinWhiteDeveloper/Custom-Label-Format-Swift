@@ -55,6 +55,7 @@ public enum MediaCategory: String, Codable, Searchable {
     case Romance
     case Crime
     case Documentary
+    case Adventure
     case Unknown
     
     public var associatedIndex: Int {
