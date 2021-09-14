@@ -54,6 +54,7 @@ public enum MediaCategory: String, Codable, Searchable {
     case Mystery
     case Romance
     case Crime
+    case Documentary
     case Unknown
     
     public var associatedIndex: Int {
@@ -84,8 +85,9 @@ public enum MediaCategory: String, Codable, Searchable {
 public enum MediaType: String, Codable, Searchable {
     case TVShow = "TV Show"
     case Movie
-    case Anime
-    case Documentary
+    case AnimeMovie = "Anime Movie"
+    case AnimeSeries = "Anime Series"
+    case TalkShow = "Talk Show"
     case Unknown
     
     public var associatedIndex: Int {
