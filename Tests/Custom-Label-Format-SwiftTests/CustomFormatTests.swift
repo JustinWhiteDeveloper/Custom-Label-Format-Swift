@@ -143,4 +143,32 @@ class CustomFormatTests: XCTestCase {
         //then
         XCTAssertTrue(isLabelled)
     }
+    
+    func testCustomFormat_AddTogetherTwoItems() {
+        //given
+        var item1 = CustomFormatItem()
+        item1.categories = [.Action]
+        item1.identifier = "id"
+        item1.mediaType = .Movie
+        
+        var customFormat1 = CustomFormat()
+        customFormat1.items = ["a": item1]
+        
+        var item2 = CustomFormatItem()
+        item2.categories = [.Adventure]
+        item2.identifier = "id2"
+        item2.mediaType = .TVShow
+        
+        var customFormat2 = CustomFormat()
+        customFormat2.items = ["b": item2]
+        
+        
+        //when
+        let customFormat3 = customFormat1 + customFormat2
+
+        //then
+        XCTAssertEqual(customFormat3.items.keys.sorted(), ["a", "b"])
+        XCTAssertEqual(customFormat3.items["a"]?.categories, [.Action])
+        XCTAssertEqual(customFormat3.items["b"]?.categories, [.Adventure])
+    }
 }

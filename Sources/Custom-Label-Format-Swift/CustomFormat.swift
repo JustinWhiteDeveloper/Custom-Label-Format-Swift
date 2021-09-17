@@ -9,16 +9,19 @@ import Foundation
 
 public protocol Searchable: CaseIterable {
     
-    associatedtype SearchType: CaseIterable, RawRepresentable where SearchType.RawValue == String
+    associatedtype SearchType: CaseIterable,
+                               RawRepresentable where SearchType.RawValue == String
     
     var associatedIndex: Int { get }
     
-    static var defaultIndex: Int { get }
-
     func associatedIndexWithOffset(offset: Int) -> Int
     
+    static var defaultIndex: Int { get }
+    
     static var defaultValue: SearchType { get }
+    
     static func valueFromIndex(index: Int, offset: Int) -> SearchType
+    
     static func from(storedValue: String) -> SearchType
 }
 
@@ -118,10 +121,6 @@ public enum MediaType: String, Codable, Searchable {
 
 public struct CustomFormatItem: Codable {
     
-    public init() {
-        
-    }
-    
     public var identifier: String?
     
     public var mediaType: MediaType?
@@ -129,6 +128,8 @@ public struct CustomFormatItem: Codable {
     public var isMarked: Bool = false
     
     public var categories: [MediaCategory] = []
+    
+    public init() { }
     
     func isLabelled() -> Bool {
         let setMediaType = mediaType != nil && mediaType != MediaType.Unknown
@@ -138,12 +139,9 @@ public struct CustomFormatItem: Codable {
     }
 }
 
-public struct CustomFormat: Codable, CustomStringConvertible {
+public struct CustomFormat: Codable {
     
-    public init() {
-        
-    }
-    
+
     //Members
     
     public var items: [String: CustomFormatItem] = [:]
@@ -152,26 +150,38 @@ public struct CustomFormat: Codable, CustomStringConvertible {
     
     //Methods
     
+    public init() {}
+    
     public func getLabelledIndicies() -> [String] {
         return items.filter { item in
             item.value.isLabelled()
         }.map({$0.key})
     }
+
     
+    public static func +(lhs: CustomFormat, rhs: CustomFormat) -> CustomFormat {
+        var newItem = lhs
+        rhs.items.forEach { (key, value) in newItem.items[key] = value }
+        return newItem
+    }
+}
+
+extension CustomFormat: CustomStringConvertible {
     public var description: String {
+        
+        let defaultValue = "{}"
         
         do {
             let jsonEncoder = JSONEncoder()
             let jsonData = try jsonEncoder.encode(self)
             let json = String(data: jsonData, encoding: String.Encoding.utf8)
             
-            return json ?? "{}"
+            return json ?? defaultValue
         }
         catch {
             print(error)
-            return "{}"
+            return defaultValue
         }
     }
 }
-
 
