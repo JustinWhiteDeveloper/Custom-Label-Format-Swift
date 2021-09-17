@@ -125,6 +125,8 @@ public struct CustomFormatItem: Codable {
     
     public var name: String?
         
+    public var folderName: String?
+    
     public var mediaType: MediaType?
     
     public var isMarked: Bool = false
@@ -132,6 +134,10 @@ public struct CustomFormatItem: Codable {
     public var categories: [MediaCategory] = []
         
     public init() { }
+    
+    var displayName: String? {
+        return name ?? folderName
+    }
     
     func isLabelled() -> Bool {
         let setMediaType = mediaType != nil && mediaType != MediaType.Unknown

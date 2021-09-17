@@ -28,6 +28,7 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(item.getLabelledIndicies(), [])
         XCTAssertFalse(subItem.isMarked)
         XCTAssertFalse(subItem.isLabelled())
+        XCTAssertNil(subItem.displayName)
     }
     
     func testCustomFormat_OptionalValues() {
@@ -36,14 +37,27 @@ class CustomFormatTests: XCTestCase {
         var subItem = CustomFormatItem()
         subItem.name = "test1"
         subItem.identifier = "abcd"
+        subItem.folderName = "test2"
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"categories\":[],\"name\":\"test1\",\"identifier\":\"abcd\"}},\"version\":2}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"folderName\":\"test2\",\"name\":\"test1\",\"identifier\":\"abcd\",\"categories\":[]}},\"version\":2}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
 
         //then
         XCTAssertEqual(item.description, expectedValue)
+        XCTAssertEqual(item.items["test"]?.displayName, "test1")
+    }
+    
+    func testCustomFormat_FolderNameIsDefaultDisplayName() {
+        //given
+        var item = CustomFormatItem()
+        
+        //when
+        item.folderName = "test1"
+
+        //then
+        XCTAssertEqual(item.displayName, "test1")
     }
     
     func testCustomFormat_LabelledIndicies() {
