@@ -25,7 +25,7 @@ public struct CustomFormatItem: Codable {
     
     public init() { }
     
-    var displayName: String? {
+    public var displayName: String? {
         return name ?? folderName
     }
     
