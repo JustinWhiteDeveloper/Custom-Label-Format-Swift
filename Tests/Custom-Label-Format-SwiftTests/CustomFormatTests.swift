@@ -30,6 +30,22 @@ class CustomFormatTests: XCTestCase {
         XCTAssertFalse(subItem.isLabelled())
     }
     
+    func testCustomFormat_OptionalValues() {
+        //given
+        var item = CustomFormat()
+        var subItem = CustomFormatItem()
+        subItem.name = "test1"
+        subItem.identifier = "abcd"
+        
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"categories\":[],\"name\":\"test1\",\"identifier\":\"abcd\"}},\"version\":2}"
+        
+        //when
+        item.items.updateValue(subItem, forKey: "test")
+
+        //then
+        XCTAssertEqual(item.description, expectedValue)
+    }
+    
     func testCustomFormat_LabelledIndicies() {
         //given
         var item = CustomFormat()

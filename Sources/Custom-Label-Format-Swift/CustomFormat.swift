@@ -123,12 +123,14 @@ public struct CustomFormatItem: Codable {
     
     public var identifier: String?
     
+    public var name: String?
+        
     public var mediaType: MediaType?
     
     public var isMarked: Bool = false
     
     public var categories: [MediaCategory] = []
-    
+        
     public init() { }
     
     func isLabelled() -> Bool {
@@ -140,15 +142,10 @@ public struct CustomFormatItem: Codable {
 }
 
 public struct CustomFormat: Codable {
-    
 
-    //Members
-    
     public var items: [String: CustomFormatItem] = [:]
-    
+        
     public var version: Int = 2
-    
-    //Methods
     
     public init() {}
     
