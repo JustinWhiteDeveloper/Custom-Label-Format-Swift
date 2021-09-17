@@ -18,7 +18,7 @@ class CustomFormatTests: XCTestCase {
         subItem.identifier = "id"
         subItem.mediaType = .Movie
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\",\"subItemCount\":0}},\"version\":2}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\",\"subItemCount\":0}},\"version\":3}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -41,7 +41,7 @@ class CustomFormatTests: XCTestCase {
         subItem.identifier = "abcd"
         subItem.folderName = "test2"
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"folderName\":\"test2\",\"name\":\"test1\",\"identifier\":\"abcd\",\"categories\":[]}},\"version\":2,\"folderName\":\"folder\"}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"subItemCount\":0,\"folderName\":\"test2\",\"name\":\"test1\",\"identifier\":\"abcd\",\"categories\":[]}},\"version\":3,\"folderName\":\"folder\"}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
