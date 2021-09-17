@@ -25,8 +25,8 @@ public struct CustomFormatItem: Codable {
     
     public init() { }
     
-    public var displayName: String? {
-        return name ?? folderName
+    public var displayName: String {
+        return name ?? folderName ?? "*"
     }
     
     func isLabelled() -> Bool {

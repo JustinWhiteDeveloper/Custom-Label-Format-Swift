@@ -28,7 +28,7 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(item.getLabelledIndicies(), [])
         XCTAssertFalse(subItem.isMarked)
         XCTAssertFalse(subItem.isLabelled())
-        XCTAssertNil(subItem.displayName)
+        XCTAssertEqual(subItem.displayName, "*")
     }
     
     func testCustomFormat_OptionalValues() {
