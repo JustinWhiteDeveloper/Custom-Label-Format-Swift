@@ -23,6 +23,8 @@ public struct CustomFormatItem: Codable {
             
     public var subItemCount: Int = 0
     
+    public var imageUrl: String?
+    
     public init() { }
     
     public var displayName: String {
