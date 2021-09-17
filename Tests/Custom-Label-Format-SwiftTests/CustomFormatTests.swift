@@ -27,7 +27,7 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(item.description, expectedValue)
         XCTAssertEqual(item.getLabelledIndicies(), [])
         XCTAssertFalse(subItem.isMarked)
-        XCTAssertFalse(subItem.isLabelled())
+        XCTAssertFalse(subItem.isLabelled)
         XCTAssertEqual(subItem.displayName, "*")
     }
     
@@ -75,7 +75,7 @@ class CustomFormatTests: XCTestCase {
 
         //then
         XCTAssertFalse(subItem.isMarked)
-        XCTAssertTrue(subItem.isLabelled())
+        XCTAssertTrue(subItem.isLabelled)
         XCTAssertEqual(item.getLabelledIndicies(), ["test"])
     }
     
@@ -114,10 +114,8 @@ class CustomFormatTests: XCTestCase {
         item.mediaType = .Movie
 
         //when
-        let isLabelled = item.isLabelled()
-
         //then
-        XCTAssertTrue(isLabelled)
+        XCTAssertTrue(item.isLabelled)
     }
     
     func testCustomFormat_IsLabelled_MissingCategory() {
@@ -128,10 +126,8 @@ class CustomFormatTests: XCTestCase {
         item.mediaType = .Movie
 
         //when
-        let isLabelled = item.isLabelled()
-
         //then
-        XCTAssertFalse(isLabelled)
+        XCTAssertFalse(item.isLabelled)
     }
     
     func testCustomFormat_IsLabelled_MissingType() {
@@ -141,10 +137,8 @@ class CustomFormatTests: XCTestCase {
         item.identifier = "id"
 
         //when
-        let isLabelled = item.isLabelled()
-
         //then
-        XCTAssertFalse(isLabelled)
+        XCTAssertFalse(item.isLabelled)
     }
     
     func testCustomFormat_IsLabelled_Unknown() {
@@ -155,10 +149,8 @@ class CustomFormatTests: XCTestCase {
         item.mediaType = .Unknown
 
         //when
-        let isLabelled = item.isLabelled()
-
         //then
-        XCTAssertFalse(isLabelled)
+        XCTAssertFalse(item.isLabelled)
     }
     
     func testCustomFormat_IsLabelled_MarkedStillComplete() {
@@ -170,10 +162,8 @@ class CustomFormatTests: XCTestCase {
         item.isMarked = true
         
         //when
-        let isLabelled = item.isLabelled()
-
         //then
-        XCTAssertTrue(isLabelled)
+        XCTAssertTrue(item.isLabelled)
     }
     
     func testCustomFormat_AddTogetherTwoItems() {

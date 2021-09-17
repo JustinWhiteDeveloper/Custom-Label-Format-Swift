@@ -29,7 +29,7 @@ public struct CustomFormatItem: Codable {
         return name ?? folderName ?? "*"
     }
     
-    func isLabelled() -> Bool {
+    public var isLabelled: Bool {
         let setMediaType = mediaType != nil && mediaType != MediaType.Unknown
         let setCategoryType = categories.count > 0
 
@@ -49,7 +49,7 @@ public struct CustomFormat: Codable {
     
     public func getLabelledIndicies() -> [String] {
         return items.filter { item in
-            item.value.isLabelled()
+            item.value.isLabelled
         }.map({$0.key})
     }
 
