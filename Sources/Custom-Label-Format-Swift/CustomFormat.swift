@@ -7,118 +7,6 @@
 
 import Foundation
 
-public protocol Searchable: CaseIterable {
-    
-    associatedtype SearchType: CaseIterable,
-                               RawRepresentable where SearchType.RawValue == String
-    
-    var associatedIndex: Int { get }
-    
-    func associatedIndexWithOffset(offset: Int) -> Int
-    
-    static var defaultIndex: Int { get }
-    
-    static var defaultValue: SearchType { get }
-    
-    static func valueFromIndex(index: Int, offset: Int) -> SearchType
-    
-    static func from(storedValue: String) -> SearchType
-}
-
-public extension Searchable {
-
-    func associatedIndexWithOffset(offset: Int) -> Int {
-        let index = associatedIndex + offset
-        
-        if index < 0 || index >= SearchType.allCases.count {
-            return Self.defaultIndex
-        }
-        
-        return index
-    }
-    
-    static func valueFromIndex(index: Int) -> SearchType {
-        return valueFromIndex(index: index, offset: 0)
-    }
-    
-    static func from(storedValue: String) -> SearchType {
-        return SearchType(rawValue: storedValue) ?? defaultValue
-    }
-}
-
-public enum MediaCategory: String, Codable, Searchable {
-    case Drama
-    case Fantasy
-    case SciFi
-    case Comedy
-    case SliceOfLife = "Slice Of Life"
-    case Action
-    case Horror
-    case Mystery
-    case Romance
-    case Crime
-    case Documentary
-    case Adventure
-    case Unknown
-    
-    public var associatedIndex: Int {
-        return MediaCategory.allCases.firstIndex(of: self) ?? 0
-    }
-    
-    public static var defaultIndex: Int {
-        return MediaCategory.defaultValue.associatedIndex
-    }
-    
-    public static var defaultValue: MediaCategory {
-        return .Unknown
-    }
-
-    public static func valueFromIndex(index: Int, offset: Int = 0) -> MediaCategory {
-        let values = MediaCategory.allCases
-        
-        let adjustedIndex = index + offset
-        
-        if values.count <= adjustedIndex || adjustedIndex < 0 {
-            return defaultValue
-        }
-        
-        return values[adjustedIndex]
-    }
-}
-
-public enum MediaType: String, Codable, Searchable {
-    case TVShow = "TV Show"
-    case Movie
-    case AnimeMovie = "Anime Movie"
-    case AnimeSeries = "Anime Series"
-    case TalkShow = "Talk Show"
-    case Unknown
-    
-    public var associatedIndex: Int {
-        return MediaType.allCases.firstIndex(of: self) ?? 0
-    }
-    
-    public static var defaultIndex: Int {
-        return MediaType.defaultValue.associatedIndex
-    }
-    
-    public static var defaultValue: MediaType {
-        return .Unknown
-    }
-    
-    public static func valueFromIndex(index: Int, offset: Int = 0) -> MediaType {
-        let values = MediaType.allCases
-        
-        let adjustedIndex = index + offset
-        
-        if values.count <= adjustedIndex || adjustedIndex < 0 {
-            return defaultValue
-        }
-        
-        return values[adjustedIndex]
-    }
-}
-
 public struct CustomFormatItem: Codable {
     
     public var identifier: String?
@@ -132,7 +20,9 @@ public struct CustomFormatItem: Codable {
     public var isMarked: Bool = false
     
     public var categories: [MediaCategory] = []
-        
+            
+    public var subItemCount: Int = 0
+    
     public init() { }
     
     var displayName: String? {
@@ -149,9 +39,11 @@ public struct CustomFormatItem: Codable {
 
 public struct CustomFormat: Codable {
 
+    public var folderName: String?
+    
     public var items: [String: CustomFormatItem] = [:]
         
-    public var version: Int = 2
+    public var version: Int = 3
     
     public init() {}
     
@@ -161,10 +53,17 @@ public struct CustomFormat: Codable {
         }.map({$0.key})
     }
 
-    
     public static func +(lhs: CustomFormat, rhs: CustomFormat) -> CustomFormat {
         var newItem = lhs
         rhs.items.forEach { (key, value) in newItem.items[key] = value }
+        
+        let lhsFolder = lhs.folderName ?? ""
+        let rhsFolder = rhs.folderName ?? ""
+        
+        if !lhsFolder.isEmpty || !rhsFolder.isEmpty {
+            newItem.folderName = "\(lhsFolder),\(rhsFolder)"
+        }
+        
         return newItem
     }
 }

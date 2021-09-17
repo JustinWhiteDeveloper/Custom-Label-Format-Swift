@@ -14,9 +14,7 @@ public protocol CustomFormatWriter {
 
 public class FolderCustomFormatWriter: CustomFormatWriter {
     
-    public init() {
-        
-    }
+    public init() {}
     
     public func writeFile(destination: String, value: CustomFormat) {
         let encodedValue = value.description

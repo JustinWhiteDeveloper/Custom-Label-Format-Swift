@@ -18,7 +18,7 @@ class CustomFormatTests: XCTestCase {
         subItem.identifier = "id"
         subItem.mediaType = .Movie
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\"}},\"version\":2}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"mediaType\":\"Movie\",\"categories\":[],\"identifier\":\"id\",\"subItemCount\":0}},\"version\":2}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -34,12 +34,14 @@ class CustomFormatTests: XCTestCase {
     func testCustomFormat_OptionalValues() {
         //given
         var item = CustomFormat()
+        item.folderName = "folder"
+        
         var subItem = CustomFormatItem()
         subItem.name = "test1"
         subItem.identifier = "abcd"
         subItem.folderName = "test2"
         
-        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"folderName\":\"test2\",\"name\":\"test1\",\"identifier\":\"abcd\",\"categories\":[]}},\"version\":2}"
+        let expectedValue = "{\"items\":{\"test\":{\"isMarked\":false,\"folderName\":\"test2\",\"name\":\"test1\",\"identifier\":\"abcd\",\"categories\":[]}},\"version\":2,\"folderName\":\"folder\"}"
         
         //when
         item.items.updateValue(subItem, forKey: "test")
@@ -182,6 +184,7 @@ class CustomFormatTests: XCTestCase {
         item1.mediaType = .Movie
         
         var customFormat1 = CustomFormat()
+        customFormat1.folderName = "p"
         customFormat1.items = ["a": item1]
         
         var item2 = CustomFormatItem()
@@ -190,6 +193,7 @@ class CustomFormatTests: XCTestCase {
         item2.mediaType = .TVShow
         
         var customFormat2 = CustomFormat()
+        customFormat2.folderName = "o"
         customFormat2.items = ["b": item2]
         
         
@@ -197,6 +201,7 @@ class CustomFormatTests: XCTestCase {
         let customFormat3 = customFormat1 + customFormat2
 
         //then
+        XCTAssertEqual(customFormat3.folderName, "p,o")
         XCTAssertEqual(customFormat3.items.keys.sorted(), ["a", "b"])
         XCTAssertEqual(customFormat3.items["a"]?.categories, [.Action])
         XCTAssertEqual(customFormat3.items["b"]?.categories, [.Adventure])

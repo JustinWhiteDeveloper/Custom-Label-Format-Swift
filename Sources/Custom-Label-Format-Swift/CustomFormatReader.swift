@@ -13,25 +13,23 @@ public protocol CustomFormatReader {
 
 public class FolderCustomFormatReader: CustomFormatReader {
     
-    public init() {
-        
-    }
+    public init() {}
     
     public func readFile(source: String) -> CustomFormat {
         
+        let defaultValue = CustomFormat()
+        
         do {
             guard let data = FileManager.default.contents(atPath: source) else {
-                return CustomFormat()
+                return defaultValue
             }
             
             let format = try JSONDecoder().decode(CustomFormat.self, from: data)
             return format
-            
         }
         catch {
             print(error)
+            return defaultValue
         }
-        
-        return CustomFormat()
     }
 }
