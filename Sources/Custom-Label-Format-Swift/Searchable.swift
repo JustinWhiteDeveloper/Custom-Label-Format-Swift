@@ -47,18 +47,19 @@ public extension Searchable {
 }
 
 public enum MediaCategory: String, Codable {
+    
+    case Action
+    case Adventure
+    case Comedy
+    case Crime
+    case Documentary
     case Drama
     case Fantasy
-    case SciFi
-    case Comedy
-    case SliceOfLife = "Slice Of Life"
-    case Action
     case Horror
     case Mystery
     case Romance
-    case Crime
-    case Documentary
-    case Adventure
+    case SciFi
+    case SliceOfLife = "Slice Of Life"
     case Unknown
 }
 
