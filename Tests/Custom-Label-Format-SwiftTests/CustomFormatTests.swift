@@ -196,4 +196,52 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(customFormat3.items["a"]?.categories, [.Action])
         XCTAssertEqual(customFormat3.items["b"]?.categories, [.Adventure])
     }
+    
+    func testCustomFormat_SortedItems() {
+        //given
+        var item1 = CustomFormatItem()
+        item1.categories = [.Comedy]
+        item1.mediaType = .Movie
+        item1.folderName = "a"
+        
+        var item2 = CustomFormatItem()
+        item2.categories = [.Crime]
+        item2.mediaType = .TVShow
+        item2.folderName = "b"
+
+        var customFormat = CustomFormat()
+        customFormat.items = ["id2": item2, "id4": item1]
+
+        //when
+        let sorted = customFormat.sortedItems()
+
+        //then
+        XCTAssertEqual(sorted.map({$0.key}), ["id4","id2"])
+        XCTAssertEqual(sorted.map({$0.value.displayName}), ["a","b"])
+    }
+    
+    func testCustomFormat_SortedItemsWithName() {
+        //given
+        var item1 = CustomFormatItem()
+        item1.categories = [.Comedy]
+        item1.mediaType = .Movie
+        item1.folderName = "a"
+        item1.name = "b"
+
+        var item2 = CustomFormatItem()
+        item2.categories = [.Crime]
+        item2.mediaType = .TVShow
+        item2.folderName = "b"
+        item1.name = "a"
+
+        var customFormat = CustomFormat()
+        customFormat.items = ["id6": item2, "id1": item1]
+
+        //when
+        let sorted = customFormat.sortedItems()
+
+        //then
+        XCTAssertEqual(sorted.map({$0.key}), ["id1","id6"])
+        XCTAssertEqual(sorted.map({$0.value.displayName}), ["a","b"])
+    }
 }

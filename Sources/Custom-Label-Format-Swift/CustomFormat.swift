@@ -68,6 +68,12 @@ public struct CustomFormat: Codable {
         
         return newItem
     }
+    
+    public func sortedItems() -> [Dictionary<String, CustomFormatItem>.Element] {
+        //Note: Use folder name instead of display name can change which would affect the index
+        let items = items.sorted(by: {($0.value.folderName ?? "") < ($1.value.folderName ?? "")})
+        return items
+    }
 }
 
 extension CustomFormat: CustomStringConvertible {
