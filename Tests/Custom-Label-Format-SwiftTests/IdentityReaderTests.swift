@@ -9,9 +9,7 @@ import XCTest
 @testable import Custom_Label_Format_Swift
 
 class IdentityReaderTests: XCTestCase {
-    
-    let bundleResourcesFolder: String = "/contents/Resources"
-    
+        
     func testIdentityReader_MapFromString_EmptyDictionary() {
         //given
         let input = "{}"

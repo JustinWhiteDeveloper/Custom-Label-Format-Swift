@@ -21,7 +21,8 @@ let package = Package(
             dependencies: ["Custom-Label-Format-Swift"],
             resources: [
                 .copy("Resources/group1.identity"),
-                .copy("Resources/test1.clabel")
+                .copy("Resources/test1.clabel"),
+                .copy("Resources/Test/test2.clabel")
 
             ]),
     ]

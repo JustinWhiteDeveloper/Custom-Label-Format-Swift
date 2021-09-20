@@ -9,6 +9,8 @@ import Foundation
 
 public protocol CustomFormatReader {
     func readFile(source: String) -> CustomFormat
+    
+    func readFolder(source: String) -> CustomFormat
 }
 
 public class FolderCustomFormatReader: CustomFormatReader {
@@ -31,5 +33,27 @@ public class FolderCustomFormatReader: CustomFormatReader {
             print(error)
             return defaultValue
         }
+    }
+    
+    public func readFolder(source: String) -> CustomFormat {
+        var value = CustomFormat()
+        value.folderName = source.lastPathComponent
+
+        let container = LocalFolderContainer()
+        let folderResult = container.read(folder: source)
+
+        for folder in folderResult.subFolders {
+
+            let identifier = "\(folder.name.integerHash)"
+
+            var item = CustomFormatItem()
+            item.folderName = folder.name
+            item.identifier = identifier
+            item.subItemCount = folder.fileCount
+            
+            value.items[identifier] = item
+        }
+        
+        return value
     }
 }

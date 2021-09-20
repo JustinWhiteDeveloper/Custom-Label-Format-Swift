@@ -23,7 +23,7 @@ public class FileIdentityReader: IdentityReader {
     
     public func readFile(source: String) -> [String : String] {
         
-        let pathExtension = (source as NSString).pathExtension
+        let pathExtension = source.pathExtension
         
         if pathExtension != expectedFileType {
             return [:]
