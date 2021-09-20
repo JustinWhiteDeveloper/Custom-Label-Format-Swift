@@ -27,11 +27,11 @@ class CustomFormatReaderTests: XCTestCase {
     
     func testFormatReader_ReadSourceFromBundle() {
         //given
-        let path = Bundle.module.bundlePath
+        let path = Bundle.module.bundlePath + "/contents"
         let reader: CustomFormatReader = FolderCustomFormatReader()
         
         //when
-        let value = reader.readFolder(source: path + "/contents" )
+        let value = reader.readFolder(source: path)
         
         //then
         XCTAssertEqual(value.version, 3)
