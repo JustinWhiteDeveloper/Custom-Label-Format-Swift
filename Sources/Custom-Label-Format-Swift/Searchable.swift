@@ -60,6 +60,7 @@ public enum MediaCategory: String, Codable {
     case Romance
     case SciFi
     case SliceOfLife = "Slice Of Life"
+    case Other
     case Unknown
 }
 
