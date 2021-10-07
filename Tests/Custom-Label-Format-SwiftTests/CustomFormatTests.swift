@@ -244,4 +244,30 @@ class CustomFormatTests: XCTestCase {
         XCTAssertEqual(sorted.map({$0.key}), ["id1","id6"])
         XCTAssertEqual(sorted.map({$0.value.displayName}), ["a","b"])
     }
+    
+    
+    func testCustomFormat_SortedItemsWithPoints() {
+        //given
+        var item1 = CustomFormatItem()
+        item1.categories = [.Drama]
+        item1.mediaType = .Movie
+        item1.folderName = "a"
+        item1.name = "b"
+
+        var item2 = CustomFormatItem()
+        item2.categories = [.Crime]
+        item2.mediaType = .TVShow
+        item2.folderName = "b"
+        item1.name = "a"
+
+        var customFormat = CustomFormat()
+        customFormat.items = ["id6": item2, "id1": item1]
+
+        //when
+        let sorted = customFormat.itemsSortedByValue(valueMap: ["a":0.3, "b": 0.1])
+
+        //then
+        XCTAssertEqual(sorted[0].folderName, "a")
+        XCTAssertEqual(sorted[1].folderName, "b")
+    }
 }

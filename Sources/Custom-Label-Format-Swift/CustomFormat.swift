@@ -74,6 +74,14 @@ public struct CustomFormat: Codable {
         let items = items.sorted(by: {($0.value.folderName ?? "") < ($1.value.folderName ?? "")})
         return items
     }
+    
+    public func itemsSortedByValue(valueMap: [String: Double]) -> [CustomFormatItem] {
+        return items.map({$0.value}).sorted(by: { item1, item2 in
+            let points1 = valueMap[item1.folderName ?? item1.displayName] ?? 0.0
+            let points2 = valueMap[item2.folderName ?? item2.displayName] ?? 0.0
+            return points1 > points2
+        })
+    }
 }
 
 extension CustomFormat: CustomStringConvertible {
